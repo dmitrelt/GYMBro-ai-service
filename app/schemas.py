@@ -44,22 +44,24 @@ class NutritionRequest(BaseModel):
     """
     Запрос на fallback-расчёт КБЖУ через нейросеть.
     """
-    raw_text: str = Field(..., description='Текст, который ввёл пользователь про питание')
+    raw_text: str = Field(..., description='Полный текст питания от пользователя')
 
+class NutritionItem(BaseModel):
+    """Информация по одному продукту"""
+    product_name: str
+    grams: float
+    calories: float
+    protein: float
+    fat: float
+    carbs: float
 
 class NutritionResponse(BaseModel):
     """
-    Ответ с рассчитанным КБЖУ.
+    Ответ от нейросети с расчётом КБЖУ для всех продуктов.
     """
     success: bool
-    product_name: Optional[str] = None
-    grams: Optional[float] = None
-    calories: Optional[float] = None
-    protein: Optional[float] = None
-    fat: Optional[float] = None
-    carbs: Optional[float] = None
-    error_message: Optional[str] = None
-
+    items: Optional[List[NutritionItem]] = Field(None, description='Список рассчитанных продуктов')
+    error_message: Optional[str] = Field(None, description='Подробное сообщение, если не удалось обработать')
 
 
 class RecommendationRequest(BaseModel):
