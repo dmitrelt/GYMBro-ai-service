@@ -17,20 +17,20 @@ class LLMClient:
             temperature: float = 0.3
     ) -> Any:
 
-        url = (f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:"
-               f"generateContent?key={self.api_key}")
+        url = (f'https://generativelanguage.googleapis.com/v1beta/models/{self.model}:'
+               f'generateContent?key={self.api_key}')
 
         payload = {
-            "contents": [
+            'contents': [
                 {
-                    "parts": [
-                        {"text": prompt}
+                    'parts': [
+                        {'text': prompt}
                     ]
                 }
             ],
-            "generationConfig": {
-                "temperature": temperature,
-                "responseMimeType": "application/json"
+            'generationConfig': {
+                'temperature': temperature,
+                'responseMimeType': 'application/json'
             }
         }
 
