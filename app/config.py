@@ -1,17 +1,17 @@
+# app/config.py
+
 from pydantic_settings import BaseSettings
 
-
 class Settings(BaseSettings):
-    GEMINI_API_KEY: str
-
-    GEMINI_MODEL: str
+    GROQ_API_KEY: str
+    GROQ_MODEL: str
 
     JWT_SECRET: str
-
-    JWT_ALGORITHM: str
+    JWT_ALGORITHM: str = "HS256"
 
     class Config:
-        env_file = '.env'
-        extra = 'ignore'
+        env_file = ".env"
+        extra = "ignore"
+
 
 settings = Settings()
