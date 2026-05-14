@@ -1,5 +1,6 @@
+from typing import List, Optional # noqa
+
 from pydantic import BaseModel, Field
-from typing import List, Optional
 
 
 class TrainingParseRequest(BaseModel):
@@ -13,11 +14,11 @@ class ExerciseSet(BaseModel):
     """
     Один подход в упражнении.
     """
-    weight_kg: Optional[float] = Field(None, description='Вес в килограммах')
-    reps: Optional[int] = Field(None, description='Количество повторений')
-    duration_seconds: Optional[int] = Field(None, description='Время в секундах')
-    distance_km: Optional[float] = Field(None, description='Дистанция в километрах')
-    feeling: Optional[str] = Field(None, description='Субъективное ощущение')
+    weight_kg: float | None = Field(None, description='Вес в килограммах')
+    reps: int | None = Field(None, description='Количество повторений')
+    duration_seconds: int | None = Field(None, description='Время в секундах')
+    distance_km: float | None = Field(None, description='Дистанция в километрах')
+    feeling: str | None = Field(None, description='Субъективное ощущение')
 
 
 class Exercise(BaseModel):
@@ -26,9 +27,9 @@ class Exercise(BaseModel):
     """
     exercise_name: str = Field(..., description='Название упражнения')
     exercise_type: str = Field(..., description='Тип упражнения')
-    muscle_group: Optional[str] = Field(None, description='Группа мышц')
-    sets: List[ExerciseSet] = Field(..., description='Список подходов к этому упражнению')
-    raw_input_text: Optional[str] = Field(None, description='Оригинальный текст')
+    muscle_group: str | None = Field(None, description='Группа мышц')
+    sets: list[ExerciseSet] = Field(..., description='Список подходов к этому упражнению')
+    raw_input_text: str | None = Field(None, description='Оригинальный текст')
 
 
 class TrainingParseResponse(BaseModel):
@@ -36,8 +37,8 @@ class TrainingParseResponse(BaseModel):
     Ответ AI Service после попытки распарсить тренировку.
     """
     success: bool = Field(..., description='Успешно ли прошёл парсинг')
-    exercises: Optional[List[Exercise]] = Field(None, description='Список упражнений')
-    error_message: Optional[str] = Field(None, description='Сообщение об ошибке, если парсинг не удался')
+    exercises: list[Exercise] | None = Field(None, description='Список упражнений')
+    error_message: str | None = Field(None, description='Сообщение об ошибке, если парсинг не удался')
 
 
 class NutritionRequest(BaseModel):
@@ -60,8 +61,8 @@ class NutritionResponse(BaseModel):
     Ответ от нейросети с расчётом КБЖУ для всех продуктов.
     """
     success: bool
-    items: Optional[List[NutritionItem]] = Field(None, description='Список рассчитанных продуктов')
-    error_message: Optional[str] = Field(None, description='Подробное сообщение, если не удалось обработать')
+    items: list[NutritionItem] | None = Field(None, description='Список рассчитанных продуктов')
+    error_message: str | None = Field(None, description='Подробное сообщение, если не удалось обработать')
 
 
 class RecommendationRequest(BaseModel):
@@ -69,9 +70,9 @@ class RecommendationRequest(BaseModel):
     Запрос на генерацию персональной рекомендации.
     """
     goals_text: str
-    restrictions_text: Optional[str] = None
-    recent_workouts: Optional[str] = None
-    recent_food: Optional[str] = None
+    restrictions_text: str | None = None
+    recent_workouts: str | None = None
+    recent_food: str | None = None
 
 
 class RecommendationResponse(BaseModel):
@@ -80,4 +81,4 @@ class RecommendationResponse(BaseModel):
     """
     success: bool
     recommendation_text: str
-    error_message: Optional[str] = None
+    error_message: str | None = None

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+
 from app.schemas import RecommendationRequest, RecommendationResponse
 from app.security import get_current_user
 

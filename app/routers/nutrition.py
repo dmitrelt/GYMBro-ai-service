@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
+
+from app.llm import llm_client
 from app.schemas import NutritionRequest, NutritionResponse
 from app.security import get_current_user
-from app.llm import llm_client
 
 router = APIRouter(
     prefix='/nutrition',

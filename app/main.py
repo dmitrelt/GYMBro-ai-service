@@ -1,10 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers.training import router as training_router
 from app.routers.nutrition import router as nutrition_router
 from app.routers.recommendation import router as recommendation_router
-
+from app.routers.training import router as training_router
 
 app = FastAPI(
     title='GYMBro AI service',
