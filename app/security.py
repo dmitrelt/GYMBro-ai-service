@@ -1,20 +1,11 @@
-from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+# app/security.py
+from fastapi import Depends
 
-security = HTTPBearer()
 
-async def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security)
-) -> int:
-    """Заглушка авторизации для разработки и лабораторных"""
-    # if not credentials or not credentials.credentials:
-    #     raise HTTPException(
-    #         status_code=status.HTTP_401_UNAUTHORIZED,
-    #         detail="Не предоставлен токен",
-    #         headers={"WWW-Authenticate": "Bearer"},
-    #     )
-    # Для тестов возвращаем фиксированный user_id
-    # fake_user_id = 1
-    # print(f"[AI Service] Запрос обработан для user_id={fake_user_id}")
-    # return fake_user_id
-    return 1
+async def get_current_user() -> int:
+    """
+    Простая заглушка авторизации для разработки и тестирования.
+    Не требует токен.
+    """
+    fake_user_id = 1
+    return fake_user_id
